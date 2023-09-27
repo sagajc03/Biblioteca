@@ -66,8 +66,11 @@ public class Main {
             i++;
         }
         System.out.println("\n");
-        System.out.println("Escribe el numero del libro a manegar");
+        System.out.println("Escribe el numero del libro a manegar ('n' regrasar)");
         opc = sc.nextLine();
+        if (opc.equalsIgnoreCase("n")){
+            return;
+        }
         menuLibro(lista.get(opc));
     }
 
