@@ -4,7 +4,7 @@ public class Libro {
     public String autor;
     public String titulo;
     public int num_paginas = 0;
-    private int pagina_actual = 0;
+    public int pagina_actual = 0;
     public String categoria;
     public boolean secuela;
     public Vector<Hoja> paginas = new Vector<>();
@@ -29,6 +29,10 @@ public class Libro {
         return detalles;
     }
 
+    public String corto(){
+        return this.titulo + " - " + this.autor;
+    }
+
     public void crearHoja(double interlineado, String texto, int capitulo){
         Hoja h = new Hoja(interlineado, texto, capitulo);
         this.paginas.add(h);
@@ -46,7 +50,7 @@ public class Libro {
     }
 
     public void pasarPagina(){
-        if(pagina_actual < num_paginas) {
+        if(pagina_actual < num_paginas - 1) {
             this.pagina_actual = this.pagina_actual + 1;
         }
     }

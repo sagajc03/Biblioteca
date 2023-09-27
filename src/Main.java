@@ -18,7 +18,8 @@ public class Main {
                 "4 - Buscar libro por autor\n" +
                 "5 - Buscar libro por categoría\n" +
                 "6 - Ver todos los libros\n" +
-                "7 - Salir";
+                "7 - Lista de libros\n" +
+                "8 - Salir";
         while (activo){
             System.out.println(texto_opcion);
             opc = sc.nextInt();
@@ -40,6 +41,9 @@ public class Main {
                     visualizarLibros();
                     break;
                 case 7:
+                    listaLibros();
+                    break;
+                case 8:
                     System.out.println("Saliendo");
                     activo = false;
                     break;
@@ -48,6 +52,78 @@ public class Main {
                     break;
             }
         }
+    }
+
+    private static void listaLibros() {
+        Scanner sc = new Scanner(System.in);
+        HashMap<String, Libro>  lista = new HashMap<>();
+        String opc;
+        int i = 1;
+
+        for (Libro libro : libros.values()) {
+            lista.put(i +"",libro);
+            System.out.println(i + "> " + libro.corto());
+            i++;
+        }
+        System.out.println("\n");
+        System.out.println("Escribe el numero del libro a manegar");
+        opc = sc.nextLine();
+        menuLibro(lista.get(opc));
+    }
+
+    private static void menuLibro(Libro libro) {
+        Scanner sc = new Scanner(System.in);
+        int opc;
+        String texto_opcion = "1 - Crear Hoja\n" +
+                "2 - Leer pagina actual\n" +
+                "3 - Pasar pagina\n" +
+                "4 - Regresar pagina\n" +
+                "5 - Salir";
+        boolean activoLibro = true;
+        while (activoLibro){
+            System.out.println(texto_opcion);
+            opc = Integer.parseInt(sc.nextLine());
+            switch (opc){
+                case 1:
+                    String texto;
+                    int capitulo;
+                    try {
+                        System.out.println("Numero de capitulo> ");
+                        capitulo = Integer.parseInt(sc.nextLine());
+                        System.out.println("Texto de la pagina> ");
+                        texto = sc.nextLine();
+                        libro.crearHoja(1, texto, capitulo);
+                        System.out.println("no_pag_actual: " + (libro.pagina_actual + 1));
+                        System.out.println("no_pags: " + libro.num_paginas);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    break;
+                case 2:
+                    System.out.println(libro.leerActual());
+                    System.out.println("no_pag_actual: " + (libro.pagina_actual+1));
+                    System.out.println("no_pags: " + libro.num_paginas);
+                    break;
+                case 3:
+                    libro.pasarPagina();
+                    System.out.println("no_pag_actual: " + (libro.pagina_actual+1));
+                    System.out.println("no_pags: " + libro.num_paginas);
+                    break;
+                case 4:
+                    libro.regresarPagina();
+                    System.out.println("no_pag_actual: " + (libro.pagina_actual+1));
+                    System.out.println("no_pags: " + libro.num_paginas);
+                    break;
+                case 5:
+                    System.out.println("Saliendo");
+                    activoLibro = false;
+                    break;
+                default:
+                    System.out.println("Opcion invalida");
+                    break;
+            }
+        }
+
     }
 
     private static void buscarLibro() {
@@ -106,6 +182,7 @@ public class Main {
         libros.remove(aux);
         System.out.println("Se elimino " + aux);
     }
+
     public static void visualizarLibros(){
         /*
         * Pasa por todos los libros del HashMap
