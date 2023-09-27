@@ -7,7 +7,7 @@ public class Libro {
     public int pagina_actual = 0;
     public String categoria;
     public boolean secuela;
-    public Vector<Hoja> paginas = new Vector<>();
+    public Vector<Hoja> paginas = new Vector<>();  //Guarda sus propias hojas
 
     public Libro(String autor, String titulo, int num_paginas, String categoria, boolean secuela){
         this.autor = autor;
@@ -29,7 +29,7 @@ public class Libro {
         return detalles;
     }
 
-    public String corto(){
+    public String corto(){ //manera corta de imprimir el libro
         return this.titulo + " - " + this.autor;
     }
 
@@ -40,7 +40,7 @@ public class Libro {
     }
 
     public String leerActual(){
-        if (this.paginas.size()>0) {
+        if (!this.paginas.isEmpty()) {
             String res = "Capitulo: " + this.paginas.get(this.pagina_actual).capitulo + "\n";
             res += "Texto: \n" + this.paginas.get(this.pagina_actual).texto;
             return res;
@@ -49,7 +49,7 @@ public class Libro {
         }
     }
 
-    public void pasarPagina(){
+    public void pasarPagina(){ // en efecto, uno por uno
         if(pagina_actual < num_paginas - 1) {
             this.pagina_actual = this.pagina_actual + 1;
         }

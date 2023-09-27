@@ -4,6 +4,10 @@ import java.util.Scanner;
 public class Main {
 
     public static HashMap<String, Libro> libros = new HashMap<>();
+    //HashMap con un String (el titulo del libro) y el objeto Libro (asi puedes acceder a sus funciones)
+
+
+    //Para probar el codigo recuerda que los datos no deben tener sentido, solo que coincidan su tipo de dato
     public static void menuA(){
         /*
         * Funcion de la logica del programa
@@ -41,6 +45,7 @@ public class Main {
                     visualizarLibros();
                     break;
                 case 7:
+                    //En la lista puedes seleccionar un libro para añadirle paginas, leerlo, y tal
                     listaLibros();
                     break;
                 case 8:
@@ -56,6 +61,7 @@ public class Main {
 
     private static void listaLibros() {
         Scanner sc = new Scanner(System.in);
+        //Este HashMap es para usar el libro que guarde
         HashMap<String, Libro>  lista = new HashMap<>();
         String opc;
         int i = 1;
@@ -71,7 +77,7 @@ public class Main {
         if (opc.equalsIgnoreCase("n")){
             return;
         }
-        menuLibro(lista.get(opc));
+        menuLibro(lista.get(opc)); //lista.get(opc) es libro del HashMap que seleccionamos
     }
 
     private static void menuLibro(Libro libro) {
@@ -88,6 +94,7 @@ public class Main {
             opc = Integer.parseInt(sc.nextLine());
             switch (opc){
                 case 1:
+                    //Crear una Hoja
                     String texto;
                     int capitulo;
                     try {
@@ -103,11 +110,13 @@ public class Main {
                     }
                     break;
                 case 2:
+                    //Leer la pagina actual
                     System.out.println(libro.leerActual());
                     System.out.println("no_pag_actual: " + (libro.pagina_actual+1));
                     System.out.println("no_pags: " + libro.num_paginas);
                     break;
                 case 3:
+                    //avanzar una pagina (no es como qe haya muchas y se actualizan al crear paginas)
                     libro.pasarPagina();
                     System.out.println("no_pag_actual: " + (libro.pagina_actual+1));
                     System.out.println("no_pags: " + libro.num_paginas);
@@ -133,8 +142,8 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         System.out.println("Escribe el libro a buscar");
         String aux = sc.nextLine();
-        if(libros.containsKey(aux)){
-            System.out.println(libros.get(aux).mostrarDetalles());
+        if(libros.containsKey(aux)){ //funcion de los HashMap para ubicar el primer elemento (el String del titulo)
+            System.out.println(libros.get(aux).mostrarDetalles()); //.get devuelve el objeto (el libro) lo que nos permite acceder a sus funciones/metodos
         }else {
             System.out.println("No se encontro el libro");
         }
@@ -172,7 +181,7 @@ public class Main {
             }
 
             Libro l = new Libro(autor, titulo, num_paginas, categoria, secuela);
-            libros.put(titulo, l);
+            libros.put(titulo, l); //se añaden libros al HashMap
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -182,7 +191,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         System.out.println("Escribe el libro a eliminar");
         String aux = sc.nextLine();
-        libros.remove(aux);
+        libros.remove(aux); //elimina el libro por su titulo
         System.out.println("Se elimino " + aux);
     }
 

@@ -11,7 +11,7 @@ public class Hoja {
     }
 
     public Hoja(String texto, int capitulo){
-
+        //puedes tener dos iniciadores, sabias? se usa sengun contexto
         this.interlineado = 1;
         this.texto = texto;
         this.capitulo = capitulo;
